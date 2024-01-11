@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Ví điện tử MIMI</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script type="text/javascript">
+    var user_session = sessionStorage.getItem('user_ss');
+    var user_ss_name = sessionStorage.getItem('user_ss_name');
+  </script>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="public/assets/img/favicon.png" rel="icon">
+  <link href="public/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="public/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="public/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="public/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="public/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="public/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="public/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="public/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="public/assets/css/style.css" rel="stylesheet">
+
+</head>
+<style type="text/css">
+  #click_chuyentien{
+    transition: 0.5s ease;
+  }
+  #click_chuyentien:hover{
+    background-color: #d283d6;
+    color: #fff;
+  }
+</style>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="public/assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Ví MIMI</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              Bạn có 4 thông báo mới
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Xem tất cả</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Thông tin tài khoản</h4>
+                <p>Hãy bảo vệ thông tin của bạn nhé</p>
+                <p>30p trước</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Cảnh báo vi phạm</h4>
+                <p>Chúng tôi nhận thấy hành vi đáng nghi ngờ</p>
+                <p>1h trước</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Thay đổi thông tin cá nhân</h4>
+                <p>Chúc mừng bạn đã update thông tin thành công</p>
+                <p>2h trước</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Chính sách</h4>
+                <p>Trân trọng gửi đến bạn những chính sách của chúng tôi</p>
+                <p>4h trước</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Tất cả thông báo</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              Bạn có 3 tin nhắn mới
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Xem tất cả</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="public/assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Nguyễn Thành Đôn</h4>
+                  <p>Hi, tôi vừa chuyển cho bạn 1 tỷ đó nhé. Bạn check xem nha...</p>
+                  <p>4h trước</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="public/assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Trần Hoàn</h4>
+                  <p>Nay đào được bao nhiêu coin rồi thế...</p>
+                  <p>6h trước</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="public/assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Nguyễn Quang Minh</h4>
+                  <p>Chốt 20 coin giá 5 triệu đô nha bro, được thì alo tôi nh...</p>
+                  <p>8h trước</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Tất cả tin nhắn</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="public/assets/img/avt2.png" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2" id="nameuser"><%= ten_ss %></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6 id="nameuser2"><%= ten_ss %></h6>
+              <span>Người dùng</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" onclick="IsVadid();">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Cài đặt tài khoản</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Giúp đỡ?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="javascript:void(0)">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Đăng xuất</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Trang chủ</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Lịch sử giao dịch</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#crolltont">
+              <i class="bi bi-circle"></i><span>Nhận tiền</span>
+            </a>
+          </li>
+          <li>
+            <a href="#crolltoct">
+              <i class="bi bi-circle"></i><span>Chuyển tiền</span>
+            </a>
+          </li>
+          <li>
+            <a href="crolltoct">
+              <i class="bi bi-circle"></i><span>Xem biến động số dư</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" onclick="IsVadid();">
+          <i class="bi bi-shield-lock"></i>
+          <span>Kiểm tra tài khoản</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-register.html">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.html">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+      <div class="row">
+        <center>
+          <img src="public/assets/img/avt.jpg" style="width: 60%;">
+        </center>
+      </div>
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="4000">
+            <img src="https://homepage.momocdn.net/img/momo-upload-api-230918154053-638306484538099401.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img src="https://homepage.momocdn.net/img/momo-upload-api-231028090809-638340808894602854.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img src="https://homepage.momocdn.net/img/momo-upload-api-231003113250-638319295703511887.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item" data-bs-interval="4000">
+            <img src="https://homepage.momocdn.net/img/momo-upload-api-231010140112-638325432727212507.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <br>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-6 col-md-6">
+              <div class="card info-card revenue-card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Số dư <span>| Hiện tại</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>$
+                        <% all_giaodich.forEach((gdall, index) => { %>
+                          <% if (index === all_giaodich.length - 1) { %>
+                            <span id="sodu"><%= gdall.sodu %></span>
+                          <% } %>
+                        <% }); %>
+                      </h6>
+                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">tăng</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Revenue Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-6 col-xl-12">
+
+              <div class="card info-card customers-card" id="click_chuyentien" data-bs-toggle="modal" data-bs-target="#largeModal">
+
+                <div class="card-body">
+                  <h5 class="card-title">Chuyển tiền <span></span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cash-coin"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>Chuyển ngay</h6>
+                      <span class="text-danger small pt-1 fw-bold">0%</span> <span class="text-muted small pt-2 ps-1">phí giao dịch</span>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- End Customers Card -->
+
+            <!-- Reports -->
+            <div class="col-12">
+              <div class="card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Báo cáo <span>/ Biến động số dư</span></h5>
+
+                  <!-- Line Chart -->
+                  <div id="reportsChart"></div>
+
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new ApexCharts(document.querySelector("#reportsChart"), {
+                        series: [{
+                          name: 'Tổng quan',
+                          data: [31, 40, 28, 51, 42, 82, 56],
+                        }, {
+                          name: 'Nhận',
+                          data: [11, 32, 45, 32, 34, 52, 41]
+                        }, {
+                          name: 'Chuyển',
+                          data: [15, 11, 32, 18, 9, 24, 11]
+                        }],
+                        chart: {
+                          height: 350,
+                          type: 'area',
+                          toolbar: {
+                            show: false
+                          },
+                        },
+                        markers: {
+                          size: 4
+                        },
+                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                        fill: {
+                          type: "gradient",
+                          gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.3,
+                            opacityTo: 0.4,
+                            stops: [0, 90, 100]
+                          }
+                        },
+                        dataLabels: {
+                          enabled: false
+                        },
+                        stroke: {
+                          curve: 'smooth',
+                          width: 2
+                        },
+                        xaxis: {
+                          type: 'datetime',
+                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                        },
+                        tooltip: {
+                          x: {
+                            format: 'dd/MM/yy HH:mm'
+                          },
+                        }
+                      }).render();
+                    });
+                  </script>
+                  <!-- End Line Chart -->
+
+                </div>
+
+              </div>
+            </div><!-- End Reports -->
+
+            <!-- Recent Sales -->
+            <div class="col-12" id="crolltoct">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Chuyển tiền <span>| Biến động số dư</span></h5>
+
+                  <table class="table table-borderless datatable" id="lschuyentienid">
+                    <thead>
+                      <tr>
+                        <th scope="col">Mã giao dịch</th>
+                        <th scope="col">Đến</th>
+                        <th scope="col">Số tiền</th>
+                        <th scope="col">Thời gian</th>
+                        <th scope="col">Trạng thái</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% giaodich_ct.forEach(gdct => { %>
+                      <tr>
+                        <th scope="row"><a href="#">#<%= gdct._id %></a></th>
+                        <td><%= gdct.username2 %></td>
+                        <td><a href="#" class="text-primary"><b style="color: red;">-<%= gdct.amount %></b></a></td>
+                        <td><%= gdct.timestamp %></td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+
+            <!-- Top Selling -->
+            <div class="col-12" id="crolltont">
+              <div class="card top-selling overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body pb-0">
+                  <h5 class="card-title">Nhận tiền <span>| Biến động số dư</span></h5>
+
+                  <table class="table table-borderless" id="lsnhantienid">
+                    <thead>
+                      <tr>
+                        <th scope="col">Mã giao dịch</th>
+                        <th scope="col">Từ</th>
+                        <th scope="col">Số tiền</th>
+                        <th scope="col">Thời gian</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% giaodich_nt.forEach(gdnt => { %>
+                      <tr>
+                        <th scope="row"><%= gdnt._id %></a></th>
+                        <td><a href="#" class="text-primary fw-bold"><%= gdnt.username2 %></a></td>
+                        <td><b style="color: green;">+<%= gdnt.amount %></b></td>
+                        <td><%= gdnt.timestamp %></td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+            </div><!-- End Top Selling -->
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+          <!-- Recent Activity -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+
+                <li><a class="dropdown-item" href="#">Today</a></li>
+                <li><a class="dropdown-item" href="#">This Month</a></li>
+                <li><a class="dropdown-item" href="#">This Year</a></li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title">Hoạt động gần đây <span>| ...</span></h5>
+
+              <div class="activity">
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">32 phút</div>
+                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                  <div class="activity-content">
+                    Chuyển tiền đến <a href="#" class="fw-bold text-dark">người may mắn</a> hôm nay.
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">56 min</div>
+                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                  <div class="activity-content">
+                    Cảnh báo đăng nhập trên thiết bị lạ. IP: 109.168.72.251:8080
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">2 hrs</div>
+                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                  <div class="activity-content">
+                    Nhận 300,000 vnđ từ Lê Công Hoan
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">1 day</div>
+                  <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                  <div class="activity-content">
+                    Biến động số dư của tài khoản <a href="#" class="fw-bold text-dark">đang bị đánh dấu</a> nguy hiểm
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">2 days</div>
+                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                  <div class="activity-content">
+                    Đổi tài khoản giao dịch thành công
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">4 weeks</div>
+                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                  <div class="activity-content">
+                    Cảnh báo tài khoản không hoạt động đã lâu!
+                  </div>
+                </div><!-- End activity item-->
+
+              </div>
+
+            </div>
+          </div><!-- End Recent Activity -->
+
+          <!-- News & Updates Traffic -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+
+                <li><a class="dropdown-item" href="#">Today</a></li>
+                <li><a class="dropdown-item" href="#">This Month</a></li>
+                <li><a class="dropdown-item" href="#">This Year</a></li>
+              </ul>
+            </div>
+
+            <div class="card-body pb-0">
+              <h5 class="card-title">Tin tức &amp; Sự kiện <span>| Hôm nay</span></h5>
+
+              <div class="news">
+                <div class="post-item clearfix">
+                  <img src="public/assets/img/news-1.jpg" alt="">
+                  <h4><a href="#">Ra mắt ví điện tử MIMI</a></h4>
+                  <p>Ví điện tử dựa trên mô hình block-chain đầu tiên trên thế giới...</p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="public/assets/img/news-2.jpg" alt="">
+                  <h4><a href="#">Người đứng đầu ví MIMI</a></h4>
+                  <p>Người sáng lập nên ví MIMI đang hé lộ những update mớ...</p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="public/assets/img/news-3.jpg" alt="">
+                  <h4><a href="#">Sự kiện ra mắt chức năng mới</a></h4>
+                  <p>Sự kiện với sự góp mặt của các ông lớn công nghệ của thế giới...</p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="public/assets/img/news-4.jpg" alt="">
+                  <h4><a href="#">Update tính năng siêu mã hóa tiền ảo</a></h4>
+                  <p>Vừa qua các chuyên gia bảo mật thông tin vừa nghiên cứu thuật toán mã hóa...</p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="public/assets/img/news-5.jpg" alt="">
+                  <h4><a href="#">Website tiền ảo block-chain</a></h4>
+                  <p>Chuyển tiền tức thời, cơ sở dữ liệu thời gian thực...</p>
+                </div>
+
+              </div><!-- End sidebar recent posts-->
+
+            </div>
+          </div><!-- End News & Updates -->
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>HandTrickes</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://handtrickes.com/">HandTrickes</a>
+    </div>
+  </footer><!-- End Footer -->
+
+
+  <!-- Popup chuyển tiền -->
+              <div class="modal fade" id="largeModal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><img src="public/assets/img/iconct.png" width="60"><b>Chuyển tiền đến ví MIMI</b></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                      <form action="/" method="POST">
+                        <div class="row mb-3">
+                          <label for="inputEmail3" class="col-sm-2 col-form-label">Tài khoản</label>
+                          <div class="col-sm-10">
+                            <input type="text" name="_nguoinhan_" class="form-control" id="inputtaikhoan" placeholder="Tài khoản người nhận...">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Tên</label>
+                          <div class="col-sm-10">
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control" id="inputten" style="color: green;font-weight: bold;" aria-describedby="basic-addon1" disabled>
+                              <div id='trangthaiten'>
+                              <span class="input-group-text" id="basic-addon1">
+                                <div class="spinner-border spinner-border-sm text-danger" role="status">
+                                  <!-- <span class="visually-hidden">Loading...</span> -->
+                                </div>
+                                <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                                  <!-- <span class="visually-hidden">Loading...</span> -->
+                                </div>
+                              </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Số tiền</label>
+                          <div class="col-sm-10">
+                            <div class="input-group mb-3">
+                              <input type="text" class="form-control" id="inputsotien" placeholder="100,000" aria-describedby="basic-addon1" name="_sotien_">
+                              <span class="input-group-text" id="basic-addon1">vnđ</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Lời nhắn</label>
+                          <div class="col-sm-10">
+                            <textarea type="password" class="form-control" id="inputloinhan" placeholder="Lời nhắn..."></textarea>
+                          </div>
+                        </div>
+                        <div class="text-end">
+                          <button type="submit" class="btn btn-primary col-12 col-lg-4">Xác nhận</button>
+                        </div>
+                      </form>
+
+                    </div>
+                    <!-- <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+  <!-- End popup chuyển tiền -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="public/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="public/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="public/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="public/assets/vendor/quill/quill.min.js"></script>
+  <script src="public/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="public/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="public/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="public/assets/js/main.js"></script>
+
+</body>
+
+</html>
